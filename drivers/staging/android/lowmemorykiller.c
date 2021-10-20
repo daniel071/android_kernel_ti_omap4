@@ -243,7 +243,7 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	unsigned long nr_to_scan = sc->nr_to_scan;
 
 	tsk = current->group_leader;
-	if ((tsk->flags & PF_EXITING) && test_task_flag(tsk, TIF_MEMDIE)) {
+	if ((tsk->flags & PF_EXITING) && test_tsk_thread_flag(tsk, TIF_MEMDIE)) {
 		set_tsk_thread_flag(current, TIF_MEMDIE);
 		return 0;
 	}
@@ -337,7 +337,7 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 		}
 		if (fatal_signal_pending(p) ||
 				((p->flags & PF_EXITING) &&
-					test_task_flag(p, TIF_MEMDIE))) {
+					test_tsk_thread_flag(p, TIF_MEMDIE))) {
 			lowmem_print(2, "skip slow dying process %d\n", p->pid);
 			task_unlock(p);
 			continue;
