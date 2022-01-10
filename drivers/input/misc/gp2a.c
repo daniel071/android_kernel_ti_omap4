@@ -603,7 +603,7 @@ static int gp2a_i2c_probe(struct i2c_client *client,
 		pr_err("%s: missing pdata!\n", __func__);
 		return ret;
 	}
-	if (!pdata->power || !pdata->light_adc_value) {
+	if (!pdata->light_adc_value) {
 		pr_err("%s: incomplete pdata!\n", __func__);
 		return ret;
 	}
